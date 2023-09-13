@@ -11,7 +11,8 @@ const manifest: chrome.runtime.ManifestV3 = {
   permissions: [
     "storage",
     "tabs",
-    "activeTab"
+    "activeTab",
+    "scripting"
   ],
   options_page: "src/pages/options/index.html",
   background: {

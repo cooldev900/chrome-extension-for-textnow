@@ -5,6 +5,7 @@ import exampleThemeStorage from "@src/shared/storages/exampleThemeStorage";
 import withSuspense from "@src/shared/hoc/withSuspense";
 import SelectFileButton from "./SelectFileButton";
 import Message from "./Message";
+import { transferMessage } from "../content/handler";
 
 export interface ContactData {
   name: string
@@ -17,16 +18,8 @@ const Popup = () => {
   const [messageTemplate, setMessageTemplate] = useState<string>('')
 
   const sendMessages = () => {
-    console.log('started')
-    chrome.runtime.sendMessage({ message: 'sendMessage', data: {
-      name: 'test',
-      phoneNumber: '+1 205 626 9972'
-    } }, (response) => {
-      if (response.success) {
-        console.log('clicked')
-      } else {
-        console.log('unclicked')
-      }
+    chrome.runtime.sendMessage({message: 'message', contacts, messageTemplate}, (response) => {
+      console.log(response)
     })
   }
 
