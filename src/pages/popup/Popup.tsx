@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "@pages/popup/Popup.css";
 import useStorage from "@src/shared/hooks/useStorage";
 import exampleThemeStorage from "@src/shared/storages/exampleThemeStorage";
@@ -15,6 +15,8 @@ const Popup = () => {
   const theme = useStorage(exampleThemeStorage);
   const [contacts, setContacts] = useState<Array<ContactData>>([])
   const [messageTemplate, setMessageTemplate] = useState<string>('')
+
+  useEffect(() => alert(JSON.stringify(contacts)), [contacts])
 
   return (
     <div className="App bg-white">

@@ -14,6 +14,9 @@ const SelectFileButton = ({ setContacts }: { setContacts: (value: ContactData[])
             // Parse CSV string using Papa.parse
             const csvString = e.target.result.toString();
             const result = Papa.parse(csvString, { header: true });
+            if (result?.errors.length) {
+                setError(result.errors[0]?.message)
+            }
             callback(result);
           }
         };
@@ -43,14 +46,13 @@ const SelectFileButton = ({ setContacts }: { setContacts: (value: ContactData[])
 
       useEffect(() => {
         if (error) setContacts([])
-        else {
-            alert(JSON.stringify(Object.values(csvData)[0]))
-            if (csvData?.errors) {
-                setError(csvData.errors?.message)
-            } else if (csvData?.data){
-                const data = csvData.data
-                alert(JSON.stringify(data))
-            }
+        else if (csvData?.data) {
+             setContacts(csvData.data.map((value) => {
+                return {
+                    name: value['A'],
+                    phoneNumber: '+1 205 626 9972'
+                }
+             }))
         }
       }, [csvData, error])
 
