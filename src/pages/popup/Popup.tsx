@@ -1,36 +1,27 @@
-import React from "react";
-import logo from "@assets/img/logo.svg";
+import React, { useState } from "react";
 import "@pages/popup/Popup.css";
 import useStorage from "@src/shared/hooks/useStorage";
 import exampleThemeStorage from "@src/shared/storages/exampleThemeStorage";
 import withSuspense from "@src/shared/hoc/withSuspense";
+import SelectFileButton from "./SelectFileButton";
+import Message from "./Message";
+
+export interface ContactData {
+  name: string
+  phoneNumber: string 
+}
 
 const Popup = () => {
   const theme = useStorage(exampleThemeStorage);
+  const [contacts, setContacts] = useState<Array<ContactData>>([])
+  const [messageTemplate, setMessageTemplate] = useState<string>('')
 
   return (
-    <div className="App">
+    <div className="App bg-white">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="text-lime-400">
-          Edit <code>src/pages/popup/Popup.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-        <button
-          style={{
-            color: theme === "light" ? "#fff" : "#000",
-          }}
-          onClick={exampleThemeStorage.toggle}
-        >
-          Toggle theme: [{theme}]
-        </button>
+        <SelectFileButton setContacts={setContacts}/>
+        <Message setMessageTemplate={setMessageTemplate}/>
+        <button className="border-[1px] rounded-[4px] text-blue-500 p-4 mb-[15px]"> Send Messages </button>
       </header>
     </div>
   );
