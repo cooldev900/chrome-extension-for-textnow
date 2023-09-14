@@ -5,7 +5,7 @@ import exampleThemeStorage from "@src/shared/storages/exampleThemeStorage";
 import withSuspense from "@src/shared/hoc/withSuspense";
 import SelectFileButton from "./SelectFileButton";
 import Message from "./Message";
-import { transferMessage } from "../content/handler";
+import { transferMessage } from "./handler";
 
 export interface ContactData {
   name: string
@@ -17,11 +17,11 @@ const Popup = () => {
   const [contacts, setContacts] = useState<Array<ContactData>>([])
   const [messageTemplate, setMessageTemplate] = useState<string>('')
 
-  const sendMessages = () => {
-    chrome.runtime.sendMessage({message: 'message', contacts, messageTemplate}, (response) => {
-      console.log(response)
-    })
-  }
+  
+    const sendMessages = () => {
+      if (contacts.length) transferMessage(contacts, messageTemplate)     
+    }
+  
 
   return (
     <div className="App bg-white">
@@ -35,3 +35,4 @@ const Popup = () => {
 };
 
 export default withSuspense(Popup);
+
