@@ -50,9 +50,10 @@ const SelectFileButton = ({ setContacts }: { setContacts: (value: ContactData[])
           const data = csvData.data
           data.shift()
              setContacts(csvData.data.map((value) => {
+              const name = (value[36] ?? '') + ' ' + (value[37] ?? '')
                 return {
-                    name: value[23],
-                    phoneNumber: '+1 205 626 9972'
+                    name: name,
+                    phoneNumber: `+1 ${value[38]}`
                 }
              }))
         }

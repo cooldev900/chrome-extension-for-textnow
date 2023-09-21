@@ -12,7 +12,8 @@ const manifest: chrome.runtime.ManifestV3 = {
     "storage",
     "tabs",
     "activeTab",
-    "scripting"
+    "scripting",
+    "webRequest",
   ],
   options_page: "src/pages/options/index.html",
   background: {
